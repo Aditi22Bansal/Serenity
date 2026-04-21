@@ -1,0 +1,83 @@
+.assess-page { padding: 120px 0 60px; min-height: 100vh; }
+.assess-progress {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+  max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.assess-progress .prog-step {
+  flex: 1; height: 6px; border-radius: 6px; background: var(--border); transition: var(--transition);
+}
+.assess-progress .prog-step.done { background: var(--green); }
+.assess-progress .prog-step.active { background: linear-gradient(90deg, var(--green), var(--blue)); }
+
+.assess-category-select { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 720px; margin: 0 auto; }
+.cat-card {
+  background: var(--card); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 36px 24px; text-align: center; cursor: pointer; transition: var(--transition);
+}
+.cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.cat-card.selected { border-color: var(--green); box-shadow: 0 0 0 4px var(--green-light); }
+.cat-card.completed { opacity: 0.6; position: relative; }
+.cat-card.completed::after {
+  content: '✓'; position: absolute; top: 12px; right: 12px;
+  background: var(--green); color: #fff; width: 24px; height: 24px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+}
+.cat-card .cat-icon { font-size: 2.5rem; margin-bottom: 16px; }
+.cat-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.cat-card p { font-size: 0.82rem; color: var(--text-muted); }
+
+.question-card {
+  background: var(--card); border-radius: var(--radius-lg); padding: 48px;
+  box-shadow: var(--shadow); max-width: 640px; margin: 0 auto;
+  border: 1px solid var(--border);
+}
+.question-counter { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.question-text { font-size: 1.25rem; font-family: 'Quicksand'; font-weight: 700; margin-bottom: 32px; line-height: 1.5; }
+
+.answer-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.answer-option {
+  display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+  border: 2px solid var(--border); border-radius: var(--radius-sm);
+  cursor: pointer; transition: var(--transition); background: var(--bg);
+}
+.answer-option:hover { border-color: var(--green); background: var(--green-light); }
+.answer-option.selected { border-color: var(--green); background: var(--green-light); }
+.answer-dot {
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center; transition: var(--transition);
+  flex-shrink: 0;
+}
+.answer-option.selected .answer-dot { border-color: var(--green); background: var(--green); }
+.answer-option.selected .answer-dot::after {
+  content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff;
+}
+.answer-label { font-weight: 600; font-size: 0.95rem; }
+.answer-value { margin-left: auto; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+.question-nav { display: flex; justify-content: space-between; align-items: center; }
+.question-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.results-card {
+  background: var(--card); border-radius: var(--radius-lg); padding: 48px;
+  box-shadow: var(--shadow); max-width: 640px; margin: 0 auto; text-align: center;
+  border: 1px solid var(--border);
+}
+.results-score {
+  font-size: 4rem; font-weight: 800; font-family: 'Quicksand'; margin: 24px 0 8px;
+}
+.results-card h2 { margin-bottom: 12px; }
+.results-card p { color: var(--text-light); margin-bottom: 32px; }
+.results-categories { display: flex; gap: 24px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+.result-cat {
+  background: var(--bg); padding: 20px 28px; border-radius: var(--radius-sm); text-align: center; min-width: 140px;
+}
+.result-cat .result-cat-score { font-size: 1.8rem; font-weight: 800; font-family: 'Quicksand'; }
+.result-cat .result-cat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+.results-btns { display: flex; gap: 16px; justify-content: center; }
+
+@media (max-width: 768px) {
+  .assess-category-select { grid-template-columns: 1fr; max-width: 360px; }
+  .question-card, .results-card { padding: 32px 24px; }
+  .results-categories { flex-direction: column; align-items: center; }
+}
