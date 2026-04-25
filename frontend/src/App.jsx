@@ -12,6 +12,7 @@ import Goals from './pages/Goals';
 import Profile from './pages/Profile';
 import Breathing from './pages/Breathing';
 import Heatmap from './pages/Heatmap';
+import UserGuide from './pages/UserGuide';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/guide" element={<UserGuide />} />
           <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/mood" element={<ProtectedRoute><MoodCheckin /></ProtectedRoute>} />

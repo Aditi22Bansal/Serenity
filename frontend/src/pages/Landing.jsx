@@ -203,7 +203,7 @@ export default function Landing() {
               <p>A gentle approach to understanding your complete well-being. Built with care, designed for you.</p>
             </div>
             <div className="footer-col"><h4>Platform</h4><a href="#features">Features</a><a href="#how-it-works">How It Works</a><Link to="/assessment">Assessment</Link><Link to="/dashboard">Dashboard</Link></div>
-            <div className="footer-col"><h4>Resources</h4><a href="#">Wellness Blog</a><a href="#">Guided Meditations</a><a href="#">Help Center</a><a href="#">Community</a></div>
+            <div className="footer-col"><h4>Resources</h4><a href="#">Wellness Blog</a><a href="#">Guided Meditations</a><Link to="/guide">User Guide</Link><a href="#">Community</a></div>
             <div className="footer-col"><h4>Company</h4><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Contact</a></div>
           </div>
           <div className="footer-bottom">
