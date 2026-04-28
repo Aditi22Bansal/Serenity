@@ -162,9 +162,9 @@ export default function Landing() {
           </div>
           <div className="testimonials-grid">
             {[
-              { quote: '"Serenity helped me understand that my afternoon crashes were linked to my sleep habits. I feel more balanced than ever."', name: 'Ananya S.', role: 'Yoga Instructor', color: 'var(--green)' },
-              { quote: '"The dashboard doesn\'t overwhelm me. It\'s like having a calm friend who gently nudges you in the right direction."', name: 'Rohan M.', role: 'Software Engineer', color: 'var(--blue)' },
-              { quote: '"The emotional wellness insights were eye-opening. This platform made self-care feel approachable and warm."', name: 'Priya K.', role: 'Content Creator', color: 'var(--lavender)' },
+              { quote: '"Serenity helped me understand that my afternoon crashes were linked to my sleep habits. The AI suggestions around my sleep and hydration answers were genuinely useful. I feel more balanced than ever."', name: 'Aniket Bhattacharya', role: 'Amity University Student', color: 'var(--green)' },
+              { quote: '"The dashboard doesn\'t overwhelm me. It\'s like having a calm friend who gently nudges you in the right direction. The breathing studio became my go-to before exams."', name: 'Sajal Singh', role: 'RMSIT Bangalore Student', color: 'var(--blue)' },
+              { quote: '"The emotional wellness insights were eye-opening. The personalized suggestions based on my actual answers helped me build better daily habits. This platform made self-care feel approachable."', name: 'Ritika Ghosh', role: 'NLUJA, Assam Student', color: 'var(--lavender)' },
             ].map((t, i) => (
               <div className="testimonial-card fade-up" ref={addRef} key={i}>
                 <div className="testimonial-stars">★★★★★</div>

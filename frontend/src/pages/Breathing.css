@@ -1,5 +1,5 @@
-.breathe-page { padding: 120px 0 60px; min-height: 100vh; }
-.breathe-page .container { max-width: 900px; }
+.breathe-page { padding: 100px 0 60px; min-height: 100vh; background: linear-gradient(180deg, #F0EBF508 0%, var(--bg) 20%); }
+.breathe-container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 .breathe-header { text-align: center; margin-bottom: 40px; }
 .breathe-header h1 { font-size: 2rem; margin-bottom: 8px; }
 .breathe-header p { color: var(--text-light); }
@@ -9,14 +9,60 @@
 .breathe-stat .bs-val { font-size: 1.8rem; font-weight: 800; font-family: 'Quicksand'; }
 .breathe-stat .bs-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
 
-.technique-select { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+.technique-select { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+
+/* Technique detail card */
+.tech-detail-card {
+  background: var(--card); border-radius: var(--radius); padding: 28px;
+  border: 1px solid var(--border); margin-bottom: 24px;
+}
+.tech-detail-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.tech-detail-bar { width: 5px; height: 44px; border-radius: 5px; flex-shrink: 0; }
+.tech-detail-header h3 { font-size: 1.15rem; margin-bottom: 2px; }
+.tech-pattern-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+.tech-full-desc { color: var(--text-light); font-size: 0.92rem; line-height: 1.8; margin-bottom: 20px; }
+.tech-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tech-detail-item {
+  background: var(--bg); border-radius: var(--radius-sm); padding: 20px;
+  border: 1px solid var(--border);
+}
+.tech-detail-item h4 { font-size: 0.85rem; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tech-detail-item p { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; margin: 0; }
+
+/* Comparison table */
+.tech-comparison-card {
+  background: var(--card); border-radius: var(--radius-lg); padding: 32px;
+  border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 32px;
+}
+.tech-comparison-card h3 { font-size: 1.1rem; margin-bottom: 20px; }
+.tech-comparison-table-wrap { overflow-x: auto; margin-bottom: 24px; }
+.tech-comparison-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.tech-comparison-table th {
+  text-align: left; padding: 12px 14px; background: var(--bg);
+  font-weight: 700; font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 2px solid var(--border);
+}
+.tech-comparison-table td { padding: 14px; border-bottom: 1px solid var(--border); color: var(--text-light); }
+.tech-comparison-table tr:last-child td { border-bottom: none; }
+.tech-comparison-table tr:hover td { background: var(--bg); }
+.tc-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+.intensity-bar { width: 80px; height: 6px; border-radius: 6px; background: var(--border); overflow: hidden; }
+.intensity-fill { height: 100%; border-radius: 6px; }
+.tech-key-diff { border-top: 1px solid var(--border); padding-top: 20px; }
+.tech-key-diff h4 { font-size: 0.95rem; margin-bottom: 12px; }
+.tech-key-diff ul { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+.tech-key-diff li { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; }
+.tech-key-diff li strong { color: var(--text); }
 .tech-card {
   background: var(--card); border-radius: var(--radius); padding: 24px; text-align: center;
   border: 2px solid var(--border); cursor: pointer; transition: var(--transition);
+  position: relative; overflow: hidden;
 }
 .tech-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .tech-card.selected { border-color: var(--green); box-shadow: 0 0 0 4px var(--green-light); }
-.tech-card .tech-icon { font-size: 2rem; margin-bottom: 10px; }
+.tech-icon-bar {
+  width: 40px; height: 4px; border-radius: 4px; margin: 0 auto 14px;
+}
 .tech-card h3 { font-size: 0.95rem; margin-bottom: 4px; }
 .tech-card p { font-size: 0.75rem; color: var(--text-muted); }
 .tech-card .tech-timing { font-size: 0.72rem; color: var(--green); font-weight: 700; margin-top: 8px; }
@@ -70,7 +116,7 @@
 
 .breathe-timer { font-size: 3rem; font-weight: 800; font-family: 'Quicksand'; color: var(--text); margin-bottom: 4px; }
 .breathe-cycle-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; }
-.breathe-controls { display: flex; gap: 16px; justify-content: center; }
+.breathe-controls { display: flex; gap: 16px; justify-content: center; align-items: center; }
 .breathe-controls button { min-width: 140px; justify-content: center; }
 
 .breathe-ring-pulse {
@@ -86,12 +132,12 @@
 
 .breathe-history { margin-top: 32px; }
 .breathe-history h2 { font-size: 1.3rem; margin-bottom: 16px; }
-.bh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.bh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .bh-card {
   background: var(--card); border-radius: var(--radius-sm); padding: 16px;
   border: 1px solid var(--border); display: flex; align-items: center; gap: 12px;
 }
-.bh-icon { font-size: 1.5rem; }
+.bh-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .bh-info strong { font-size: 0.88rem; display: block; }
 .bh-info span { font-size: 0.75rem; color: var(--text-muted); }
 
@@ -101,4 +147,7 @@
   .breathe-studio { padding: 32px 20px; }
   .breathe-circle-wrap { width: 200px; height: 200px; }
   .breathe-circle { width: 90px; height: 90px; font-size: 0.9rem; }
+  .breathe-container { padding: 0 16px; }
+  .tech-detail-grid { grid-template-columns: 1fr; }
+  .tech-comparison-card { padding: 20px; }
 }

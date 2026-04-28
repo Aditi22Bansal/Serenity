@@ -3,10 +3,10 @@ import { createGoal, getGoals, updateGoal, deleteGoal } from '../utils/api';
 import './Goals.css';
 
 const CATEGORIES = [
-  { id: 'physical', label: 'Physical', icon: '🏃', color: '#7BC8A4', bg: '#E8F5EE' },
-  { id: 'mental', label: 'Mental', icon: '🧠', color: '#89B4E8', bg: '#E6F0FA' },
-  { id: 'emotional', label: 'Emotional', icon: '💜', color: '#B8A9C9', bg: '#F0EBF5' },
-  { id: 'general', label: 'General', icon: '🌿', color: '#7BC8A4', bg: '#E8F5EE' },
+  { id: 'physical', label: 'Physical', color: '#7BC8A4', bg: '#E8F5EE' },
+  { id: 'mental', label: 'Mental', color: '#89B4E8', bg: '#E6F0FA' },
+  { id: 'emotional', label: 'Emotional', color: '#B8A9C9', bg: '#F0EBF5' },
+  { id: 'general', label: 'General', color: '#7BC8A4', bg: '#E8F5EE' },
 ];
 
 export default function Goals() {
@@ -52,14 +52,14 @@ export default function Goals() {
 
   return (
     <div className="goals-page">
-      <div className="container">
+      <div className="goals-container">
         <div className="goals-header">
           <div>
-            <h1>🎯 Wellness Goals</h1>
+            <h1>Wellness Goals</h1>
             <p style={{ color: 'var(--text-light)' }}>Set goals, track progress, and celebrate wins</p>
           </div>
           <button className="btn-primary btn-sm" onClick={() => setShowForm(!showForm)}>
-            {showForm ? '✕ Close' : '+ New Goal'}
+            {showForm ? 'Close' : '+ New Goal'}
           </button>
         </div>
 
@@ -78,7 +78,7 @@ export default function Goals() {
                 <div className="goal-cat-select">
                   {CATEGORIES.map(c => (
                     <button key={c.id} className={`goal-cat-btn ${form.category === c.id ? 'selected' : ''}`} onClick={() => setForm({ ...form, category: c.id })}>
-                      {c.icon} {c.label}
+                      <span className="cat-dot" style={{ background: c.color }} /> {c.label}
                     </button>
                   ))}
                 </div>
@@ -102,7 +102,7 @@ export default function Goals() {
             </div>
             <div style={{ marginTop: 20, textAlign: 'right' }}>
               <button className="btn-primary btn-sm" onClick={handleSubmit} disabled={loading || !form.title.trim()}>
-                {loading ? 'Creating...' : 'Create Goal'} 🎯
+                {loading ? 'Creating...' : 'Create Goal'}
               </button>
             </div>
           </div>
@@ -116,7 +116,9 @@ export default function Goals() {
 
         {filtered.length === 0 ? (
           <div className="goals-empty">
-            <div className="empty-icon">🎯</div>
+            <div className="empty-icon-circle" style={{ margin: '0 auto 16px' }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#7BC8A4" strokeWidth="2"/><path d="M10 16l4 4 8-8" stroke="#7BC8A4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
             <h3>No {tab === 'all' ? '' : tab} goals yet</h3>
             <p>Create your first wellness goal to start tracking progress.</p>
           </div>
@@ -129,7 +131,7 @@ export default function Goals() {
               return (
                 <div className={`goal-card ${goal.status === 'completed' ? 'goal-completed' : ''}`} key={goal._id}>
                   <div className="goal-card-header">
-                    <h3>{cat.icon} {goal.title}</h3>
+                    <h3><span className="cat-dot" style={{ background: cat.color }} /> {goal.title}</h3>
                     <span className="goal-cat-tag" style={{ background: cat.bg, color: cat.color }}>{cat.label}</span>
                   </div>
                   {goal.description && <div className="goal-desc">{goal.description}</div>}
@@ -137,7 +139,7 @@ export default function Goals() {
                     <div className="goal-progress-top">
                       <span>{exceeded ? `${goal.targetScore} / ${goal.targetScore}` : `${goal.currentProgress} / ${goal.targetScore}`}</span>
                       <span style={{ color: exceeded ? 'var(--green)' : cat.color }}>
-                        {exceeded ? '🎉 Goal Achieved!' : `${pct}%`}
+                        {exceeded ? 'Goal Achieved!' : `${pct}%`}
                       </span>
                     </div>
                     <div className="goal-progress-bar">
@@ -146,17 +148,17 @@ export default function Goals() {
                   </div>
                   <div className="goal-footer">
                     <div>
-                      {goal.status === 'completed' && <span className="goal-completed-badge">✅ Completed</span>}
-                      {goal.deadline && <span className="goal-deadline">📅 {new Date(goal.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
+                      {goal.status === 'completed' && <span className="goal-completed-badge">Completed</span>}
+                      {goal.deadline && <span className="goal-deadline">{new Date(goal.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
                     </div>
                     <div className="goal-actions">
                       {goal.status === 'active' && (
-                        <button className="goal-action-btn" onClick={() => handleStatusChange(goal._id, 'completed')}>✓ Complete</button>
+                        <button className="goal-action-btn" onClick={() => handleStatusChange(goal._id, 'completed')}>Complete</button>
                       )}
                       {goal.status === 'completed' && (
-                        <button className="goal-action-btn" onClick={() => handleStatusChange(goal._id, 'active')}>↩ Reopen</button>
+                        <button className="goal-action-btn" onClick={() => handleStatusChange(goal._id, 'active')}>Reopen</button>
                       )}
-                      <button className="goal-action-btn danger" onClick={() => handleDelete(goal._id)}>🗑️</button>
+                      <button className="goal-action-btn danger" onClick={() => handleDelete(goal._id)}>Delete</button>
                     </div>
                   </div>
                 </div>

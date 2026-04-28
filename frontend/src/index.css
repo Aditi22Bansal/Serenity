@@ -40,6 +40,7 @@ img { max-width: 100%; display: block; }
 ul { list-style: none; }
 button { cursor: pointer; font-family: 'Nunito', sans-serif; }
 
+/* Legacy container - kept for Landing page */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
 /* Buttons */

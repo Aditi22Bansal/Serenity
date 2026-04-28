@@ -1,5 +1,5 @@
-.mood-page { padding: 120px 0 60px; min-height: 100vh; }
-.mood-page .container { max-width: 800px; }
+.mood-page { padding: 100px 0 60px; min-height: 100vh; background: linear-gradient(180deg, #FDF0E608 0%, var(--bg) 20%); }
+.mood-container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
 .mood-header { text-align: center; margin-bottom: 40px; }
 .mood-header h1 { font-size: 2rem; margin-bottom: 8px; }
 .mood-header p { color: var(--text-light); }
@@ -68,4 +68,5 @@
 @media (max-width: 768px) {
   .mood-stats-row { grid-template-columns: repeat(2, 1fr); }
   .mood-card { padding: 24px; }
+  .mood-container { padding: 0 16px; }
 }

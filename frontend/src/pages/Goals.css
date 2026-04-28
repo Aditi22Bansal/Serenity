@@ -1,7 +1,9 @@
-.goals-page { padding: 120px 0 60px; min-height: 100vh; }
-.goals-page .container { max-width: 900px; }
+.goals-page { padding: 100px 0 60px; min-height: 100vh; }
+.goals-container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 .goals-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
 .goals-header h1 { font-size: 2rem; }
+
+.cat-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
 .goal-form {
   background: var(--card); border-radius: var(--radius-lg); padding: 32px;
@@ -13,7 +15,7 @@
 .goal-cat-btn {
   padding: 10px 20px; border-radius: var(--radius-sm); border: 2px solid var(--border);
   background: var(--bg); cursor: pointer; font-weight: 600; font-size: 0.88rem;
-  transition: var(--transition); display: flex; align-items: center; gap: 6px;
+  transition: var(--transition); display: flex; align-items: center; gap: 8px;
 }
 .goal-cat-btn:hover { border-color: var(--green); }
 .goal-cat-btn.selected { border-color: var(--green); background: var(--green-light); color: var(--green); }
@@ -33,7 +35,7 @@
 }
 .goal-card:hover { box-shadow: var(--shadow); }
 .goal-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-.goal-card-header h3 { font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
+.goal-card-header h3 { font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
 .goal-card-header .goal-cat-tag {
   font-size: 0.7rem; padding: 3px 10px; border-radius: 50px; font-weight: 700; text-transform: uppercase;
 }
@@ -56,7 +58,10 @@
 .goal-completed-badge { color: var(--green); font-weight: 700; font-size: 0.85rem; }
 
 .goals-empty { text-align: center; padding: 60px 24px; color: var(--text-muted); }
-.goals-empty .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+.goals-empty .empty-icon-circle {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--green-light);
+  display: flex; align-items: center; justify-content: center;
+}
 
 .goals-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
 .goals-stat {
@@ -69,4 +74,5 @@
 @media (max-width: 768px) {
   .goal-form-grid { grid-template-columns: 1fr; }
   .goals-stats { grid-template-columns: 1fr; }
+  .goals-container { padding: 0 16px; }
 }

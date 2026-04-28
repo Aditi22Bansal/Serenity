@@ -73,8 +73,15 @@ router.post('/submit', auth, async (req, res) => {
     // Keep last 30 history entries
     if (profile.history.length > 30) profile.history = profile.history.slice(-30);
 
-    // Generate new recommendations
-    profile.recommendations = generateRecommendations(profile.physicalScore, profile.mentalScore, profile.emotionalScore);
+    // Collect all recent answers for AI-driven recommendations
+    const recentAssessments = await Assessment.find({ userId: req.user.id }).sort({ completedAt: -1 }).limit(3);
+    const allAnswers = [];
+    recentAssessments.forEach(a => {
+      if (a.answers) a.answers.forEach(ans => allAnswers.push(ans));
+    });
+
+    // Generate new AI recommendations based on individual answers
+    profile.recommendations = generateRecommendations(profile.physicalScore, profile.mentalScore, profile.emotionalScore, allAnswers);
     profile.lastUpdated = new Date();
 
     await profile.save();

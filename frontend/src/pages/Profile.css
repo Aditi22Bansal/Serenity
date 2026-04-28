@@ -1,5 +1,5 @@
-.profile-page { padding: 120px 0 60px; min-height: 100vh; }
-.profile-page .container { max-width: 800px; }
+.profile-page { padding: 100px 0 60px; min-height: 100vh; }
+.profile-container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
 
 .profile-hero {
   background: linear-gradient(135deg, var(--green-light), var(--blue-light), var(--lavender-light));
@@ -65,4 +65,5 @@
   .profile-stats { grid-template-columns: repeat(2, 1fr); }
   .profile-form-row { grid-template-columns: 1fr; }
   .profile-hero { padding: 32px 24px; }
+  .profile-container { padding: 0 16px; }
 }

@@ -1,5 +1,5 @@
-.journal-page { padding: 120px 0 60px; min-height: 100vh; }
-.journal-page .container { max-width: 900px; }
+.journal-page { padding: 100px 0 60px; min-height: 100vh; display: flex; flex-direction: column; }
+.journal-container { max-width: 1000px; margin: 0 auto; padding: 0 32px; width: 100%; flex: 1; display: flex; flex-direction: column; }
 .journal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
 .journal-header h1 { font-size: 2rem; }
 
@@ -40,18 +40,20 @@
 .je-header h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
 .je-meta { display: flex; align-items: center; gap: 12px; }
 .je-date { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
-.je-mood-badge { font-size: 1.2rem; }
 .je-content { color: var(--text-light); font-size: 0.92rem; line-height: 1.8; white-space: pre-wrap; }
 .je-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
 .je-tag { font-size: 0.72rem; padding: 3px 10px; border-radius: 50px; background: var(--green-light); color: var(--green); font-weight: 600; }
 .je-delete {
-  background: none; border: none; color: var(--text-muted); font-size: 0.85rem;
-  cursor: pointer; transition: var(--transition); padding: 4px 8px; border-radius: 6px;
+  background: none; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.78rem;
+  cursor: pointer; transition: var(--transition); padding: 4px 12px; border-radius: 50px; font-weight: 600;
 }
-.je-delete:hover { color: #E57373; background: #FDE8E8; }
+.je-delete:hover { color: #E57373; border-color: #E57373; background: #FDE8E8; }
 
-.journal-empty { text-align: center; padding: 60px 24px; color: var(--text-muted); }
-.journal-empty .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+.journal-empty { text-align: center; padding: 60px 24px; color: var(--text-muted); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.journal-empty .empty-icon-circle {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+}
 
 .journal-tags-input { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .journal-tag-btn {
@@ -60,3 +62,7 @@
 }
 .journal-tag-btn:hover { border-color: var(--green); }
 .journal-tag-btn.selected { background: var(--green-light); border-color: var(--green); color: var(--green); }
+
+@media (max-width: 768px) {
+  .journal-container { padding: 0 16px; }
+}

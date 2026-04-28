@@ -55,14 +55,14 @@ export default function Journal() {
 
   return (
     <div className="journal-page">
-      <div className="container">
+      <div className="journal-container">
         <div className="journal-header">
           <div>
-            <h1>📓 Wellness Journal</h1>
-            <p style={{ color: 'var(--text-light)' }}>{total} {total === 1 ? 'entry' : 'entries'} · Your personal reflection space</p>
+            <h1>Wellness Journal</h1>
+            <p style={{ color: 'var(--text-light)' }}>{total} {total === 1 ? 'entry' : 'entries'} — Your personal reflection space</p>
           </div>
           <button className="btn-primary btn-sm" onClick={() => setShowCompose(!showCompose)}>
-            {showCompose ? '✕ Close' : '✏️ New Entry'}
+            {showCompose ? 'Close' : '+ New Entry'}
           </button>
         </div>
 
@@ -78,7 +78,7 @@ export default function Journal() {
                 ))}
               </div>
             </div>
-            <textarea placeholder="What's on your mind? How are you feeling today? Write freely..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} maxLength={5000} />
+            <textarea placeholder="What is on your mind? How are you feeling today? Write freely..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} maxLength={5000} />
             <div className="journal-tags-input">
               {TAGS.map(tag => (
                 <button key={tag} className={`journal-tag-btn ${form.tags.includes(tag) ? 'selected' : ''}`} onClick={() => toggleTag(tag)}>{tag}</button>
@@ -87,7 +87,7 @@ export default function Journal() {
             <div className="jc-footer">
               <span className="jc-count">{form.content.length} / 5000</span>
               <button className="btn-primary btn-sm" onClick={handleSubmit} disabled={loading || !form.title.trim() || !form.content.trim()}>
-                {loading ? 'Saving...' : 'Save Entry'} 📝
+                {loading ? 'Saving...' : 'Save Entry'}
               </button>
             </div>
           </div>
@@ -95,7 +95,9 @@ export default function Journal() {
 
         {entries.length === 0 ? (
           <div className="journal-empty">
-            <div className="empty-icon">📓</div>
+            <div className="empty-icon-circle" style={{ margin: '0 auto 16px' }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="8" y="4" width="16" height="24" rx="2" stroke="#89B4E8" strokeWidth="2"/><line x1="12" y1="10" x2="20" y2="10" stroke="#89B4E8" strokeWidth="1.5"/><line x1="12" y1="14" x2="20" y2="14" stroke="#89B4E8" strokeWidth="1.5"/><line x1="12" y1="18" x2="17" y2="18" stroke="#89B4E8" strokeWidth="1.5"/></svg>
+            </div>
             <h3>No journal entries yet</h3>
             <p>Start writing to track your thoughts and emotional journey.</p>
           </div>
@@ -107,7 +109,7 @@ export default function Journal() {
                   <h3>{MOODS.find(m => m.id === entry.mood)?.emoji} {entry.title}</h3>
                   <div className="je-meta">
                     <span className="je-date">{new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                    <button className="je-delete" onClick={() => handleDelete(entry._id)}>🗑️</button>
+                    <button className="je-delete" onClick={() => handleDelete(entry._id)}>Delete</button>
                   </div>
                 </div>
                 <div className="je-content">{entry.content}</div>

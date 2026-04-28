@@ -6,7 +6,7 @@
 .navbar.scrolled { box-shadow: 0 2px 20px rgba(61,72,82,0.06); }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
-  max-width: 1200px; margin: 0 auto; padding: 16px 24px;
+  max-width: 1400px; margin: 0 auto; padding: 16px 40px;
 }
 .nav-logo {
   display: flex; align-items: center; gap: 10px;

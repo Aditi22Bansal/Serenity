@@ -57,15 +57,35 @@ router.get('/stats', auth, async (req, res) => {
     
     let streak = 0;
     if (profile && profile.history.length > 0) {
-      // Simple streak: count consecutive days with assessments
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      for (let i = profile.history.length - 1; i >= 0; i--) {
-        const entryDate = new Date(profile.history[i].date);
-        entryDate.setHours(0, 0, 0, 0);
-        const diffDays = Math.floor((today - entryDate) / (1000 * 60 * 60 * 24));
-        if (diffDays <= streak + 1) streak++;
-        else break;
+      // Deduplicate by converting to YYYY-MM-DD strings
+      const allDates = profile.history.map(h => {
+        const d = new Date(h.date);
+        return d.toISOString().split('T')[0];
+      });
+      const uniqueDayStrings = [...new Set(allDates)].sort().reverse();
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      // Check if most recent activity is today or yesterday
+      const mostRecentStr = uniqueDayStrings[0];
+      const mostRecentDate = new Date(mostRecentStr + 'T00:00:00Z');
+      const todayDate = new Date(todayStr + 'T00:00:00Z');
+      const daysSinceLastActivity = Math.round((todayDate - mostRecentDate) / (1000 * 60 * 60 * 24));
+      
+      if (daysSinceLastActivity > 1) {
+        // Streak is broken
+        streak = 0;
+      } else {
+        streak = 1; // Count the most recent day
+        for (let i = 1; i < uniqueDayStrings.length; i++) {
+          const prevDate = new Date(uniqueDayStrings[i - 1] + 'T00:00:00Z');
+          const currDate = new Date(uniqueDayStrings[i] + 'T00:00:00Z');
+          const diff = Math.round((prevDate - currDate) / (1000 * 60 * 60 * 24));
+          if (diff === 1) {
+            streak++;
+          } else {
+            break;
+          }
+        }
       }
     }
 

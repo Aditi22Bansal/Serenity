@@ -4,12 +4,12 @@ import { getQuestions, submitAssessment } from '../utils/api';
 import './Assessment.css';
 
 const CATEGORIES = [
-  { id: 'physical', name: 'Physical Wellness', icon: '🏃', color: '#7BC8A4', desc: 'Body, sleep, activity & nutrition' },
-  { id: 'mental', name: 'Mental Wellness', icon: '🧠', color: '#89B4E8', desc: 'Stress, focus & mindfulness' },
-  { id: 'emotional', name: 'Emotional Wellness', icon: '💜', color: '#B8A9C9', desc: 'Feelings, relationships & resilience' },
+  { id: 'physical', name: 'Physical Wellness', color: '#7BC8A4', desc: 'Body, sleep, activity & nutrition', initial: 'P' },
+  { id: 'mental', name: 'Mental Wellness', color: '#89B4E8', desc: 'Stress, focus & mindfulness', initial: 'M' },
+  { id: 'emotional', name: 'Emotional Wellness', color: '#B8A9C9', desc: 'Feelings, relationships & resilience', initial: 'E' },
 ];
 
-const SCALE = [
+const FALLBACK_SCALE = [
   { value: 1, label: 'Rarely' },
   { value: 2, label: 'Sometimes' },
   { value: 3, label: 'Often' },
@@ -87,12 +87,13 @@ export default function Assessment() {
   const allAnswered = questions.length > 0 && Object.keys(answers).length === questions.length;
   const currentAnswer = answers[questions[currentQ]?.id];
   const catInfo = CATEGORIES.find(c => c.id === currentCat);
-  const totalQuestions = CATEGORIES.reduce((sum) => sum + 8, 0); // 8 per cat
-  const answeredTotal = completedCats.length * 8 + Object.keys(answers).length;
+  const currentQuestion = questions[currentQ];
+  // Use question-specific options if available, otherwise fallback
+  const currentOptions = currentQuestion?.options || FALLBACK_SCALE;
 
   return (
     <div className="assess-page">
-      <div className="container">
+      <div className="assess-container">
         {/* Progress Bar */}
         <div className="assess-progress">
           {CATEGORIES.map((cat, i) => (
@@ -118,7 +119,7 @@ export default function Assessment() {
                   onClick={() => !completedCats.includes(cat.id) && startCategory(cat.id)}
                   style={{ cursor: completedCats.includes(cat.id) ? 'default' : 'pointer' }}
                 >
-                  <div className="cat-icon">{cat.icon}</div>
+                  <div className="cat-icon-circle" style={{ background: cat.color }}>{cat.initial}</div>
                   <h3>{cat.name}</h3>
                   <p>{cat.desc}</p>
                   {scores[cat.id] !== undefined && (
@@ -134,11 +135,12 @@ export default function Assessment() {
         {step === 'questions' && questions.length > 0 && (
           <div className="question-card">
             <div className="question-counter">
-              <span style={{ color: catInfo?.color }}>{catInfo?.icon} {catInfo?.name}</span> — Question {currentQ + 1} of {questions.length}
+              <span className="q-cat-badge" style={{ background: catInfo?.color + '18', color: catInfo?.color }}>{catInfo?.name}</span>
+              <span>Question {currentQ + 1} of {questions.length}</span>
             </div>
             <div className="question-text">{questions[currentQ].text}</div>
             <div className="answer-options">
-              {SCALE.map(opt => (
+              {currentOptions.map(opt => (
                 <div
                   key={opt.value}
                   className={`answer-option ${currentAnswer === opt.value ? 'selected' : ''}`}
@@ -151,9 +153,9 @@ export default function Assessment() {
               ))}
             </div>
             <div className="question-nav">
-              <button className="btn-secondary btn-sm" onClick={prevQuestion} disabled={currentQ === 0}>← Back</button>
+              <button className="btn-secondary btn-sm" onClick={prevQuestion} disabled={currentQ === 0}>Back</button>
               {currentQ < questions.length - 1 ? (
-                <button className="btn-primary btn-sm" onClick={nextQuestion} disabled={!currentAnswer}>Next →</button>
+                <button className="btn-primary btn-sm" onClick={nextQuestion} disabled={!currentAnswer}>Next</button>
               ) : (
                 <button className="btn-primary btn-sm" onClick={submitCategory} disabled={!allAnswered || loading}>
                   {loading ? 'Submitting...' : completedCats.length + 1 >= CATEGORIES.length ? 'Complete Assessment' : 'Submit & Continue'}
@@ -166,7 +168,7 @@ export default function Assessment() {
         {/* Step: Results */}
         {step === 'results' && (
           <div className="results-card">
-            <span className="section-label green">✨ Assessment Complete</span>
+            <span className="section-label green">Assessment Complete</span>
             <h2>Your Wellness Profile</h2>
             <div className="results-score" style={{ color: overallScore >= 70 ? '#7BC8A4' : overallScore >= 40 ? '#89B4E8' : '#E57373' }}>
               {overallScore}
@@ -176,12 +178,12 @@ export default function Assessment() {
               {CATEGORIES.map(cat => (
                 <div className="result-cat" key={cat.id}>
                   <div className="result-cat-score" style={{ color: cat.color }}>{scores[cat.id] || 0}</div>
-                  <div className="result-cat-label">{cat.icon} {cat.name.split(' ')[0]}</div>
+                  <div className="result-cat-label">{cat.name.split(' ')[0]}</div>
                 </div>
               ))}
             </div>
             <div className="results-btns">
-              <Link to="/dashboard"><button className="btn-primary">View Dashboard →</button></Link>
+              <Link to="/dashboard"><button className="btn-primary">View Dashboard</button></Link>
               <button className="btn-secondary" onClick={() => { setCompletedCats([]); setScores({}); setStep('select'); }}>Retake Assessment</button>
             </div>
           </div>

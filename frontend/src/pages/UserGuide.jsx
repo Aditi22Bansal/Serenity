@@ -39,6 +39,10 @@ const FAQS = [
     q: 'Can I export my wellness data?',
     a: 'Yes. Navigate to the Profile page and click "Download Report" to generate a comprehensive HTML report containing your scores, assessment history, mood trends, and goals.',
   },
+  {
+    q: 'What are the motivational popups?',
+    a: 'Serenity shows a brief motivational popup when you visit the Dashboard each day. These include daily quotes, and special celebrations when you hit streak milestones (3, 7, 14, 21, 30 days). You can dismiss them with a single click.',
+  },
 ];
 
 export default function UserGuide() {
@@ -67,7 +71,7 @@ export default function UserGuide() {
 
   return (
     <div className="guide-page">
-      <div className="container">
+      <div className="guide-container">
         {/* Hero */}
         <div className="guide-hero">
           <h1>User Guide</h1>
@@ -147,7 +151,8 @@ export default function UserGuide() {
                       <p>
                         Once your assessment is complete, your personalized
                         Dashboard becomes available with wellness scores, trend
-                        charts, and tailored recommendations.
+                        charts, and tailored recommendations. You will also
+                        receive a motivational welcome popup on your first visit.
                       </p>
                     </div>
                   </li>
@@ -205,18 +210,43 @@ export default function UserGuide() {
                   </div>
                 </div>
                 <p style={{ marginTop: 20 }}>
-                  Each category contains 8 questions rated on a 5-point scale:
+                  Each category contains 8 questions. Unlike a generic scale,
+                  every question has its own contextually relevant answer options
+                  tailored to what is being asked. For example:
                 </p>
-                <div className="scale-row">
-                  {['Rarely', 'Sometimes', 'Often', 'Very Often', 'Always'].map(
-                    (label, i) => (
-                      <div className="scale-item" key={i}>
-                        <span className="scale-val">{i + 1}</span>
-                        {label}
-                      </div>
-                    )
-                  )}
+                <div className="guide-table-wrap">
+                  <table className="guide-table">
+                    <thead>
+                      <tr>
+                        <th>Question Example</th>
+                        <th>Answer Options</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>How many hours of sleep do you typically get?</td>
+                        <td>Less than 5 / 5-6 hours / 6-7 hours / 7-8 hours / 8+ hours</td>
+                      </tr>
+                      <tr>
+                        <td>How would you rate your sleep quality?</td>
+                        <td>Very Poor / Poor / Fair / Good / Excellent</td>
+                      </tr>
+                      <tr>
+                        <td>How satisfied are you with your work-life balance?</td>
+                        <td>Very Dissatisfied / Dissatisfied / Neutral / Satisfied / Very Satisfied</td>
+                      </tr>
+                      <tr>
+                        <td>How resilient do you feel when facing setbacks?</td>
+                        <td>Not Resilient / Slightly / Moderately / Very / Extremely Resilient</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+                <p style={{ marginTop: 12 }}>
+                  All answers are scored on a 1 to 5 scale internally, but the
+                  labels are specific to each question for more accurate
+                  self-assessment.
+                </p>
                 <div className="guide-info-box blue" style={{ marginTop: 20 }}>
                   <p>
                     <span className="guide-info-label">Tip:</span>
@@ -287,6 +317,14 @@ export default function UserGuide() {
                     </div>
                   </li>
                 </ol>
+                <div className="guide-info-box" style={{ marginTop: 20 }}>
+                  <p>
+                    <span className="guide-info-label">Note:</span>
+                    The Dashboard shows a motivational popup each day you visit.
+                    When you reach streak milestones (3, 7, 14, 21, 30 days),
+                    you will receive a special celebration message.
+                  </p>
+                </div>
               </div>
             </section>
 

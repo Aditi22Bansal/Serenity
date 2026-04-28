@@ -17,7 +17,7 @@
 }
 .hero h1 { font-size: 3.2rem; color: var(--text); margin-bottom: 20px; letter-spacing: -0.5px; }
 .hero h1 span { color: var(--green); }
-.hero p { font-size: 1.15rem; color: var(--text-light); margin-bottom: 36px; max-width: 500px; line-height: 1.8; }
+.hero p { font-size: 1.15rem; color: #5A6B77; margin-bottom: 36px; max-width: 500px; line-height: 1.8; }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
 .hero-visual { display: flex; justify-content: center; align-items: center; position: relative; }
 .hero-illustration {
@@ -70,7 +70,7 @@
   margin-bottom:20px; font-size:1.6rem;
 }
 .feature-card h3 { font-size:1.15rem; margin-bottom:10px; }
-.feature-card p { font-size:0.9rem; color:var(--text-light); line-height:1.7; }
+.feature-card p { font-size:0.9rem; color:#5A6B77; line-height:1.7; }
 
 /* Insights */
 .insights-section { background: linear-gradient(180deg, var(--bg) 0%, #F0F7F3 50%, var(--bg) 100%); }
@@ -86,7 +86,7 @@
   display:flex; align-items:center; justify-content:center; font-size:1.4rem;
 }
 .insight-card h4 { font-size:1.05rem; margin-bottom:6px; }
-.insight-card p { font-size:0.88rem; color:var(--text-light); line-height:1.6; }
+.insight-card p { font-size:0.88rem; color:#5A6B77; line-height:1.6; }
 .insights-visual-box {
   background: linear-gradient(135deg, var(--green-light), var(--blue-light), var(--lavender-light));
   border-radius: var(--radius-lg); padding: 48px; display: flex; align-items: center;
@@ -125,7 +125,7 @@
   font-size:2rem; background:var(--card); box-shadow:var(--shadow);
 }
 .step-card h3 { font-size:1.2rem; margin-bottom:10px; }
-.step-card p { font-size:0.9rem; color:var(--text-light); max-width:280px; margin:0 auto; }
+.step-card p { font-size:0.9rem; color:#5A6B77; max-width:280px; margin:0 auto; }
 
 /* Testimonials */
 .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
@@ -135,7 +135,7 @@
 }
 .testimonial-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); }
 .testimonial-stars { color:#F5C542; font-size:0.9rem; margin-bottom:16px; }
-.testimonial-card blockquote { font-size:0.95rem; color:var(--text-light); line-height:1.8; margin-bottom:20px; font-style:italic; }
+.testimonial-card blockquote { font-size:0.95rem; color:#4A5A66; line-height:1.8; margin-bottom:20px; font-style:italic; }
 .testimonial-author { display:flex; align-items:center; gap:14px; }
 .testimonial-avatar {
   width:44px; height:44px; border-radius:50%;
@@ -143,7 +143,7 @@
   font-weight:700; font-size:1rem; color:#fff;
 }
 .author-info strong { display:block; font-size:0.92rem; }
-.author-info span { font-size:0.8rem; color:var(--text-muted); }
+.author-info span { font-size:0.8rem; color:#6A7A86; }
 
 /* CTA */
 .cta-banner {
@@ -152,13 +152,13 @@
   margin: 0 24px;
 }
 .cta-banner h2 { font-size:2.2rem; margin-bottom:16px; }
-.cta-banner p { color:var(--text-light); font-size:1.05rem; margin-bottom:36px; max-width:500px; margin-left:auto; margin-right:auto; }
+.cta-banner p { color:#5A6B77; font-size:1.05rem; margin-bottom:36px; max-width:500px; margin-left:auto; margin-right:auto; }
 .cta-btns { display:flex; gap:16px; justify-content:center; }
 
 /* Footer */
 .footer { padding:60px 0 30px; border-top:1px solid var(--border); margin-top:80px; }
 .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
-.footer-brand p { color:var(--text-light); font-size:0.9rem; margin-top:14px; max-width:280px; line-height:1.7; }
+.footer-brand p { color:#5A6B77; font-size:0.9rem; margin-top:14px; max-width:280px; line-height:1.7; }
 .footer-col h4 { font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:18px; }
 .footer-col a { display:block; font-size:0.9rem; color:var(--text-light); padding:5px 0; transition:var(--transition); }
 .footer-col a:hover { color:var(--green); transform:translateX(4px); }
