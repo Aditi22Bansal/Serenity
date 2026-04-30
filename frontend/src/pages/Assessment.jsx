@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getQuestions, submitAssessment } from '../utils/api';
+import Counselling from './Counselling';
 import './Assessment.css';
 
 const CATEGORIES = [
@@ -188,6 +189,9 @@ export default function Assessment() {
             </div>
           </div>
         )}
+
+        {/* Counselling Booking / Session Timer — always visible */}
+        <Counselling />
       </div>
     </div>
   );
