@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import Breathing from './pages/Breathing';
 import Heatmap from './pages/Heatmap';
 import UserGuide from './pages/UserGuide';
+import MeetingRoom from './pages/MeetingRoom';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/breathe" element={<ProtectedRoute><Breathing /></ProtectedRoute>} />
           <Route path="/activity" element={<ProtectedRoute><Heatmap /></ProtectedRoute>} />
+          <Route path="/meeting" element={<ProtectedRoute><MeetingRoom /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

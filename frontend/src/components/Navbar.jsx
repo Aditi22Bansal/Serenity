@@ -21,6 +21,9 @@ export default function Navbar() {
   const handleLogout = () => { logout(); navigate('/'); };
   const isActive = (path) => location.pathname === path ? 'active' : '';
 
+  // Hide navbar on meeting page for full-screen experience
+  if (location.pathname === '/meeting') return null;
+
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="nav-inner">

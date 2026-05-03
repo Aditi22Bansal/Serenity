@@ -681,20 +681,67 @@
   padding-bottom: 16px;
 }
 
-.session-live-badge {
+/* Missed badge */
+.booked-badge.missed-badge {
+  background: #FDECEA;
+  color: #E57373;
+}
+.booked-badge.missed-badge svg { stroke: #E57373; }
+
+/* Live badge */
+.booked-badge.live-badge {
+  background: var(--green-light);
+  color: var(--green-dark);
+  animation: pulseLiveBadge 2s ease-in-out infinite;
+}
+.booked-badge.live-badge svg { stroke: var(--green-dark); }
+
+@keyframes pulseLiveBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(123,200,164,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(123,200,164,0); }
+}
+
+/* Join Session Button */
+.session-join-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #7BC8A4, #5BB088);
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  cursor: pointer;
+  margin-bottom: 24px;
+  transition: all 0.25s;
+  box-shadow: 0 6px 24px rgba(123,200,164,0.3);
+  animation: pulseJoin 2s ease-in-out infinite;
+}
+.session-join-btn svg { width: 20px; height: 20px; stroke: #fff; }
+.session-join-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 32px rgba(123,200,164,0.4);
+}
+
+@keyframes pulseJoin {
+  0%, 100% { box-shadow: 0 6px 24px rgba(123,200,164,0.3); }
+  50% { box-shadow: 0 6px 24px rgba(123,200,164,0.15), 0 0 0 8px rgba(123,200,164,0.08); }
+}
+
+/* Missed Badge */
+.session-missed-badge {
   display: inline-block;
   padding: 10px 24px;
   border-radius: 50px;
-  background: var(--green-light);
-  color: var(--green-dark);
+  background: #FDECEA;
+  color: #E57373;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   margin-bottom: 24px;
-  animation: pulseLive 2s ease-in-out infinite;
-}
-@keyframes pulseLive {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(123,200,164,0.3); }
-  50% { box-shadow: 0 0 0 10px rgba(123,200,164,0); }
 }
 
 /* Booked Details */

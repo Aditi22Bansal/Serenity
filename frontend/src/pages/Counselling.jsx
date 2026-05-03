@@ -115,8 +115,9 @@ const IconClock = () => (
 const IconStar = () => <span className="star">★</span>;
 
 /* ── Countdown Timer Hook ── */
-function useCountdown(targetDate) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0, passed: false });
+function useCountdown(targetDate, durationMins = 45) {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0, status: 'upcoming' });
+  // status: 'upcoming' | 'joinable' | 'missed'
   const interval = useRef(null);
 
   useEffect(() => {
@@ -124,24 +125,34 @@ function useCountdown(targetDate) {
     const calc = () => {
       const now = new Date().getTime();
       const target = new Date(targetDate).getTime();
+      const sessionEnd = target + durationMins * 60 * 1000;
+      const joinWindowStart = target - 5 * 60 * 1000; // 5 mins before
       const diff = target - now;
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, mins: 0, secs: 0, passed: true });
+
+      if (now >= sessionEnd) {
+        // Session duration has passed — missed
+        setTimeLeft({ days: 0, hours: 0, mins: 0, secs: 0, status: 'missed' });
         clearInterval(interval.current);
         return;
       }
+      if (now >= joinWindowStart && now < sessionEnd) {
+        // Within join window (5 mins before to session end)
+        setTimeLeft({ days: 0, hours: 0, mins: 0, secs: 0, status: 'joinable' });
+        return;
+      }
+      // Still upcoming
       setTimeLeft({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
         hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
         mins: Math.floor((diff / (1000 * 60)) % 60),
         secs: Math.floor((diff / 1000) % 60),
-        passed: false,
+        status: 'upcoming',
       });
     };
     calc();
     interval.current = setInterval(calc, 1000);
     return () => clearInterval(interval.current);
-  }, [targetDate]);
+  }, [targetDate, durationMins]);
 
   return timeLeft;
 }
@@ -253,50 +264,88 @@ export default function Counselling() {
 
   // Timer for existing booking
   const timerTarget = booking?.sessionDateTime || null;
-  const timeLeft = useCountdown(timerTarget);
+  const timeLeft = useCountdown(timerTarget, booking?.duration || 45);
 
   const stepLabels = ['cta', 'browse', 'config', 'payment', 'confirm'];
 
   // ── If a booking exists and not rescheduling, show the booked session view ──
   if (booking && step !== 5 && !rescheduling) {
     const bc = booking.counsellor;
+    const sessionStatus = timeLeft.status; // 'upcoming' | 'joinable' | 'missed'
+
+    const handleJoinSession = () => {
+      navigate('/meeting', { state: { booking } });
+    };
+
     return (
       <div className="counsel-section">
         <div className="counsel-container">
           <div className="counsel-step-enter">
             <div className="booked-card">
-              <div className="booked-badge">
-                <IconClock />
-                <span>Upcoming Session</span>
-              </div>
-              <h2>Your Session is Booked</h2>
-              <p className="booked-sub">You&apos;ve taken a wonderful step for your well-being. Your session is coming up soon.</p>
+              {sessionStatus === 'missed' ? (
+                <>
+                  <div className="booked-badge missed-badge">
+                    <IconClock />
+                    <span>Session Missed</span>
+                  </div>
+                  <h2>Session Has Ended</h2>
+                  <p className="booked-sub">It looks like the scheduled time for your session has passed. You can reschedule or book a new session.</p>
+                </>
+              ) : sessionStatus === 'joinable' ? (
+                <>
+                  <div className="booked-badge live-badge">
+                    <IconClock />
+                    <span>Session Live</span>
+                  </div>
+                  <h2>Your Session is Ready</h2>
+                  <p className="booked-sub">Your counsellor is waiting for you. Join the session now.</p>
+                </>
+              ) : (
+                <>
+                  <div className="booked-badge">
+                    <IconClock />
+                    <span>Upcoming Session</span>
+                  </div>
+                  <h2>Your Session is Booked</h2>
+                  <p className="booked-sub">You&apos;ve taken a wonderful step for your well-being. Your session is coming up soon.</p>
+                </>
+              )}
 
-              {/* Countdown Timer */}
-              <div className="countdown-grid">
-                <div className="countdown-unit">
-                  <span className="countdown-num">{String(timeLeft.days).padStart(2, '0')}</span>
-                  <span className="countdown-label">Days</span>
+              {/* Countdown Timer — only for upcoming */}
+              {sessionStatus === 'upcoming' && (
+                <div className="countdown-grid">
+                  <div className="countdown-unit">
+                    <span className="countdown-num">{String(timeLeft.days).padStart(2, '0')}</span>
+                    <span className="countdown-label">Days</span>
+                  </div>
+                  <div className="countdown-sep">:</div>
+                  <div className="countdown-unit">
+                    <span className="countdown-num">{String(timeLeft.hours).padStart(2, '0')}</span>
+                    <span className="countdown-label">Hours</span>
+                  </div>
+                  <div className="countdown-sep">:</div>
+                  <div className="countdown-unit">
+                    <span className="countdown-num">{String(timeLeft.mins).padStart(2, '0')}</span>
+                    <span className="countdown-label">Minutes</span>
+                  </div>
+                  <div className="countdown-sep">:</div>
+                  <div className="countdown-unit">
+                    <span className="countdown-num">{String(timeLeft.secs).padStart(2, '0')}</span>
+                    <span className="countdown-label">Seconds</span>
+                  </div>
                 </div>
-                <div className="countdown-sep">:</div>
-                <div className="countdown-unit">
-                  <span className="countdown-num">{String(timeLeft.hours).padStart(2, '0')}</span>
-                  <span className="countdown-label">Hours</span>
-                </div>
-                <div className="countdown-sep">:</div>
-                <div className="countdown-unit">
-                  <span className="countdown-num">{String(timeLeft.mins).padStart(2, '0')}</span>
-                  <span className="countdown-label">Minutes</span>
-                </div>
-                <div className="countdown-sep">:</div>
-                <div className="countdown-unit">
-                  <span className="countdown-num">{String(timeLeft.secs).padStart(2, '0')}</span>
-                  <span className="countdown-label">Seconds</span>
-                </div>
-              </div>
+              )}
 
-              {timeLeft.passed && (
-                <div className="session-live-badge">Your session time has arrived — join now!</div>
+              {/* Join Now Button — only when joinable */}
+              {sessionStatus === 'joinable' && (
+                <button className="session-join-btn" onClick={handleJoinSession}>
+                  <IconVideo /> Join Session Now
+                </button>
+              )}
+
+              {/* Missed Status */}
+              {sessionStatus === 'missed' && (
+                <div className="session-missed-badge">This session&apos;s scheduled time has passed</div>
               )}
 
               {/* Booking Details */}
@@ -332,10 +381,18 @@ export default function Counselling() {
                 </div>
               </div>
 
-              <div className="booked-actions">
-                <button className="btn-secondary btn-sm" onClick={handleReschedule}>Reschedule</button>
-                <button className="btn-secondary btn-sm" style={{ borderColor: '#E57373', color: '#E57373' }} onClick={handleCancel}>Cancel Booking</button>
-              </div>
+              {/* Actions based on status */}
+              {sessionStatus === 'missed' ? (
+                <div className="booked-actions">
+                  <button className="btn-primary btn-sm" onClick={handleReschedule}>Reschedule Session</button>
+                  <button className="btn-secondary btn-sm" onClick={handleCancel}>Book New Session</button>
+                </div>
+              ) : sessionStatus === 'upcoming' ? (
+                <div className="booked-actions">
+                  <button className="btn-secondary btn-sm" onClick={handleReschedule}>Reschedule</button>
+                  <button className="btn-secondary btn-sm" style={{ borderColor: '#E57373', color: '#E57373' }} onClick={handleCancel}>Cancel Booking</button>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
